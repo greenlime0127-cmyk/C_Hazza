@@ -41,6 +41,7 @@ int main()
 	Obj player;
 	player.x = 10;
 	player.y = 10;
+	player.y = 10;
 	player.color = Yellow;
 	player.shape = "■";
 
