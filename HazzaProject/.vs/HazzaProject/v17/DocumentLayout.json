@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Administrator\\AppData\\Local\\GitHubDesktop\\app-3.4.1\\C_Hazza\\HazzaProject\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D3231556-F1AF-428A-AFC2-9C3B767E6040}|HazzaProject\\HazzaProject.vcxproj|C:\\Users\\Administrator\\AppData\\Local\\GitHubDesktop\\app-3.4.1\\C_Hazza\\HazzaProject\\HazzaProject\\\uC18C\uC2A4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{D3231556-F1AF-428A-AFC2-9C3B767E6040}|HazzaProject\\HazzaProject.vcxproj|solutionrelative:HazzaProject\\\uC18C\uC2A4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "\uC18C\uC2A4.cpp",
+              "DocumentMoniker": "C:\\Users\\Administrator\\AppData\\Local\\GitHubDesktop\\app-3.4.1\\C_Hazza\\HazzaProject\\HazzaProject\\\uC18C\uC2A4.cpp",
+              "RelativeDocumentMoniker": "HazzaProject\\\uC18C\uC2A4.cpp",
+              "ToolTip": "C:\\Users\\Administrator\\AppData\\Local\\GitHubDesktop\\app-3.4.1\\C_Hazza\\HazzaProject\\HazzaProject\\\uC18C\uC2A4.cpp",
+              "RelativeToolTip": "HazzaProject\\\uC18C\uC2A4.cpp",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAEUAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2026-02-13T09:34:40.534Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
