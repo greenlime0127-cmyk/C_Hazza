@@ -1,173 +1,220 @@
 #include <stdio.h>
 #include <Windows.h>
 
+#pragma region ENUM
 enum Color
 {
-	Black,
-	DarkBlue,
-	DarkGreen,
-	DarkCyan,
-	DarkRed,
-	DarkMagenta,
-	DarkYellow,
-	Gray,
-	DarkGray,
-	Blue,
-	Green,
-	Cyan,
-	Red,
-	Magenta,
-	Yellow,
-	White,
+	BLACK,
+	DARKBLUE,
+	DARKGREEN,
+	DARKCYAN,
+	DARKRED,
+	DARKMAGENTA,
+	DARKYELLOW,
+	GRAY,
+	DARKGRAY,
+	BLUE,
+	GREEN,
+	CYAN,
+	RED,
+	MAGENTA,
+	YELLOW,
+	WHITE,
 };
 
-void HideCursor();
-void SetTextColor(Color color);
-void SetPosition(int x, int y);
+enum SCENE_ID
+{
+	LOGO,
+	MENU,
+	STAGE,
+};
 
+#pragma endregion
+
+#pragma region Struct
 struct Obj
 {
-	bool act;
 	int x;
 	int y;
 	Color color;
 	const char* shape;
-	const char* shape1[25];
 };
+#pragma endregion
 
-#define BulletCount 10
+
+#pragma region WIN_API
+void HideCursor();
+void SetTextColor(Color color);
+void SetPosition(int x, int y);
+#pragma endregion
+
+#pragma region GAME
+const char* logoImg[13];
+int timeStep = 0;
+void LogoInit();
+void LogoUpdate();
+
+const char* menuImg[7];
+Obj* menus[4];
+void MenuInit();
+void MenuUpate();
+
+void StageInit();
+void StageUpate();
+#pragma endregion
+
+SCENE_ID id;
 
 int main()
 {
-
-	printf("");
-
-
-	Obj player;
-	player.x = 10;
-	player.y = 10;
-	player.color = Yellow;
-	player.shape = "¡á";
-
-	player.shape1[0] = "   -----|-----";
-	player.shape1[1] = "*>=====[_]L)";
-	player.shape1[2] = "      -'-`-";
-
-	player.shape1[3] = "    ----|----";
-	player.shape1[4] = "*>=====[_]L)";
-	player.shape1[5] = "      -'-`-";
-
-	player.shape1[6] = "     ---|---";
-	player.shape1[7] = "*>=====[_]L)";
-	player.shape1[8] = "      -'-`-";
-
-	player.shape1[9] = "     --|--";
-	player.shape1[10] = "*>=====[_]L)";
-	player.shape1[11] = "      -'-`-";
-
-	player.shape1[12] = "       -|-";
-	player.shape1[13] = "*>=====[_]L)";
-	player.shape1[14] = "      -'-`-";
-
-	player.shape1[15] = "     --|--";
-	player.shape1[16] = "*>=====[_]L)";
-	player.shape1[17] = "      -'-`-";
-
-	player.shape1[18] = "     ---|---";
-	player.shape1[19] = "*>=====[_]L)";
-	player.shape1[20] = "      -'-`-";
-
-	player.shape1[21] = "    ----|----";
-	player.shape1[22] = "*>=====[_]L)";
-	player.shape1[23] = "      -'-`-";
-
-
-
-
-
-	Obj bullets[BulletCount];
-	for (int i = 0; i < BulletCount; i++)
-	{
-		bullets[i].act = false;
-		bullets[i].x = i;
-		bullets[i].y = 0;
-		bullets[i].color = Blue;
-		bullets[i].shape = "¡Ü";
-	}
-
 	HideCursor();
+
+	id = LOGO;
+	LogoInit();
 
 	while (true)
 	{
 		system("cls");
 
-		if (GetAsyncKeyState(VK_LEFT))
+		switch (id)
 		{
-			player.x--;
+		case LOGO:
+			LogoUpdate();
+			break;
+		case MENU:
+			MenuUpate();
+			break;
+		case STAGE:
+			StageUpate();
+			break;
+		default:
+			break;
 		}
-		if (GetAsyncKeyState(VK_RIGHT))
-		{
-			player.x++;
-		}
-		if (GetAsyncKeyState(VK_UP))
-		{
-			player.y--;
-		}
-		if (GetAsyncKeyState(VK_DOWN))
-		{
-			player.y++;
-		}
-		if (GetAsyncKeyState(VK_SPACE))
-		{
-
-
-			for (int i = 0; i < BulletCount; i++)
-			{
-				if (bullets[i].act == false)
-				{
-					bullets[i].x = player.x;
-					bullets[i].y = player.y;
-					bullets[i].color = Red;
-					bullets[i].act = true;
-					break;
-				}
-
-			}
-		}
-
-
-		SetTextColor(player.color);
-		SetPosition(player.x, player.y);
-		printf(player.shape);
-
-
-		for (int i = 0; i < BulletCount; i++)
-		{
-			if (bullets[i].act)
-			{
-				bullets[i].x++;
-				if (bullets[i].x >= 40)
-				{
-					bullets[i].x = i;
-					bullets[i].y = 0;
-					bullets[i].color = Blue;
-					bullets[i].act = false;
-				}
-			}
-		}
-
-		for (int i = 0; i < BulletCount; i++)
-		{
-			SetTextColor(bullets[i].color);
-			SetPosition(bullets[i].x, bullets[i].y);
-			printf(bullets[i].shape);
-		}
-
 		Sleep(50);
 	}
 
+
 	return 0;
 }
+
+#pragma region GAME
+
+#pragma region LOGO
+
+void LogoInit()
+{
+	logoImg[0] = "    ..........           @@@@@    @@@@@.......";
+	logoImg[1] = "     .........          @     @  @     @.......";
+	logoImg[2] = "      ........             @@@   @     @........";
+	logoImg[3] = "       .......           @@      @     @  .......";
+	logoImg[4] = "        ......          @@@@@@@   @@@@@  th ......";
+	logoImg[5] = "         .....        ----------------------- .....";
+	logoImg[6] = "          ....          C  E  N  T  U  R  Y     ....";
+	logoImg[7] = "           ...        -----------------------     ...";
+	logoImg[8] = "            ..        @@@@@ @@@@@ @   @ @@@@@       ..";
+	logoImg[9] = "            ==          @   @      @ @    @          ==";
+	logoImg[10] = "          __||__        @   @@@@    @     @        __||__";
+	logoImg[11] = "         |      |       @   @      @ @    @       |      |";
+	logoImg[12] = "_________|______|_____  @   @@@@@ @   @   @  _____|______|_________";
+}
+
+void LogoUpdate()
+{
+	for (int i = 0; i < 13; i++)
+	{
+		SetTextColor(YELLOW);
+		SetPosition(3, 10 + i);
+		printf(logoImg[i]);
+	}
+
+	timeStep++;
+	if (timeStep < 5)
+	{
+		SetTextColor(RED);
+		SetPosition(16, 25);
+		printf("PRESSED ENTER");
+
+	}
+	else
+	{
+		timeStep = 0;
+	}
+
+
+	if (GetAsyncKeyState(VK_RETURN))
+	{
+
+		MenuInit();
+		id = MENU;
+	}
+}
+#pragma endregion
+
+#pragma region MENU
+void MenuInit()
+{
+	menuImg[0] = "¡á¡¡¡¡¡¡¡á¡¡¡á¡á¡á¡á¡á¡¡¡á¡¡¡¡¡¡¡á¡¡¡á¡¡¡¡¡¡¡á";
+	menuImg[1] = "¡á¡á¡¡¡á¡á¡¡¡á¡¡¡¡¡¡¡¡¡¡¡á¡á¡¡¡¡¡á¡¡¡á¡¡¡¡¡¡¡á";
+	menuImg[2] = "¡á¡¡¡á¡¡¡á¡¡¡á¡¡¡¡¡¡¡¡¡¡¡á¡¡¡á¡¡¡á¡¡¡á¡¡¡¡¡¡¡á";
+	menuImg[3] = "¡á¡¡¡¡¡¡¡á¡¡¡á¡á¡á¡á¡¡¡¡¡á¡¡¡¡¡á¡á¡¡¡á¡¡¡¡¡¡¡á";
+	menuImg[4] = "¡á¡¡¡¡¡¡¡á¡¡¡á¡¡¡¡¡¡¡¡¡¡¡á¡¡¡¡¡¡¡á¡¡¡á¡¡¡¡¡¡¡á";
+	menuImg[5] = "¡á¡¡¡¡¡¡¡á¡¡¡á¡¡¡¡¡¡¡¡¡¡¡á¡¡¡¡¡¡¡á¡¡¡á¡¡¡¡¡¡¡á";
+	menuImg[6] = "¡á¡¡¡¡¡¡¡á¡¡¡á¡á¡á¡á¡á¡¡¡á¡¡¡¡¡¡¡á¡¡¡¡¡á¡á¡á";
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		menus[i] = (Obj*)malloc(sizeof(Obj));
+		menus[i]->x = 17;
+		menus[i]->y = 20 + i * 2;
+		menus[i]->color = WHITE;
+	}
+
+	menus[0]->shape = "START";
+	menus[1]->shape = "LOAD";
+	menus[2]->shape = "OPTION";
+	menus[3]->shape = "EXIT";
+}
+
+void MenuUpate()
+{
+	for (int i = 0; i < 7; i++)
+	{
+		SetTextColor(YELLOW);
+		SetPosition(7, 10 + i);
+		printf(menuImg[i]);
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		SetTextColor(menus[i]->color);
+		SetPosition(menus[i]->x, menus[i]->y);
+		printf(menus[i]->shape);
+	}
+
+
+}
+#pragma endregion
+
+#pragma region STAGE
+void StageInit()
+{
+}
+
+void StageUpate()
+{
+	SetTextColor(WHITE);
+	SetPosition(10, 10);
+	printf("STAGE");
+}
+#pragma endregion
+
+#pragma endregion
+
+
+
+
+#pragma region WIN_API
 
 void SetPosition(int x, int y)
 {
@@ -190,3 +237,5 @@ void HideCursor()
 	info.dwSize = 1;
 	SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &info);
 }
+#pragma endregion
+
